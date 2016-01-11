@@ -16,7 +16,7 @@ var circles = [];
 // Main function calls
 drawAxes();
 
-// Catch the left click event
+// Catch the left click mouse event
 document.addEventListener("click", function(e) {
     updateCursorPosition(e);
     var x = cursX - CANVAS.offsetLeft;
@@ -41,7 +41,6 @@ function	moveCanvas(value) {
     clearCanvas();
     drawAxes();
     drawCircles();
-    console.log(canvasLocation);
 }
 
 function	clearCanvas() {
@@ -71,14 +70,14 @@ function	isInFirstUnion(x, y) {
 
 // draw a circle to the x, y position
 function	drawCircleAtPoint(x, y) {
-    if ((unionNbr === 0) || (isInFirstUnion(x, y) === true)){
-	circles.push({"x" : x, "y": y, "union": 1});
+    if ((unionNbr === 0) || (isInFirstUnion(x - canvasLocation, y) === true)){
+	circles.push({"x" : x - canvasLocation, "y": y, "union": 1});
 	unionNbr = 1;
 	drawCircleOnCanvas(x, y, 1);
     }
     else {
 	unionNbr++;
-	circles.push({"x" : x, "y": y, "union": unionNbr});
+	circles.push({"x" : x - canvasLocation, "y": y, "union": unionNbr});
 	drawCircleOnCanvas(x, y, 0);
     }
 }
@@ -115,6 +114,6 @@ function	drawCircleOnCanvas(x, y, inUnion) {
 function	drawCircles() {
     var arrayLength = circles.length;
     for (var i = 0; i < arrayLength; i++) {
-	drawCircleOnCanvas(circles[i].x, circles[i].y, circles[i].union);
+	drawCircleOnCanvas(circles[i].x + canvasLocation, circles[i].y, circles[i].union);
     }
 }
