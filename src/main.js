@@ -7,6 +7,7 @@ var cursX = 0;
 var cursY = 0;
 
 var unionNbr = 0;
+var canvasLocation = 0;
 var CIRCLE_RADIUS = 20;
 
 // Array that stores all drawn circles
@@ -16,7 +17,7 @@ var circles = [];
 drawAxes();
 
 // Catch the left click event
-document.addEventListener('click', function(e){
+document.addEventListener("click", function(e){
     updateCursorPosition(e);
     var x = cursX - CANVAS.offsetLeft;
     var y = cursY - CANVAS.offsetTop;
@@ -38,8 +39,8 @@ function	isInFirstUnion(x, y) {
     var arrayLength = circles.length;
     for (var i = 0; i < arrayLength; i++) {
 	if ((circles[i].union === 1)
-	    && (((circles[i].x - x) >= -2 * CIRCLE_RADIUS) && ((circles[i].x - x) <= 2 * CIRCLE_RADIUS))
-	    && (((circles[i].y - y) >= -2 * CIRCLE_RADIUS) && ((circles[i].y - y) <= 2 * CIRCLE_RADIUS))) {
+	    && (Math.sqrt(Math.pow(circles[i].x - x, 2) + Math.pow(circles[i].y - y, 2))
+		<= 2 * CIRCLE_RADIUS)) {
 	    return true;
 	}
     }
