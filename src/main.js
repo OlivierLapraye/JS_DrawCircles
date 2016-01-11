@@ -17,14 +17,36 @@ var circles = [];
 drawAxes();
 
 // Catch the left click event
-document.addEventListener("click", function(e){
+document.addEventListener("click", function(e) {
     updateCursorPosition(e);
     var x = cursX - CANVAS.offsetLeft;
     var y = cursY - CANVAS.offsetTop;
     if (((x > 0) && (y > 0)) && ((x < CANVAS.offsetWidth) && (y < CANVAS.offsetHeight))) {
-	drawCircle(x, y);
+	drawCircleAtPoint(x, y);
     }
 });
+
+// catch the LEFT button click event
+document.getElementById("leftButton").addEventListener("click", function(e) {
+    moveCanvas(-10);
+});
+
+// catch the RIGHT button click event
+document.getElementById("rightButton").addEventListener("click", function(e) {
+    moveCanvas(10);
+});
+
+function	moveCanvas(value) {
+    canvasLocation += value;
+    clearCanvas();
+    drawAxes();
+    drawCircles();
+    console.log(canvasLocation);
+}
+
+function	clearCanvas() {
+    context.clearRect(0, 0, CANVAS.offsetWidth, CANVAS.offsetHeight);
+}
 
 function	updateCursorPosition(e) {
     cursX = e.pageX;
@@ -47,21 +69,18 @@ function	isInFirstUnion(x, y) {
     return false;
 }
 
-function	drawCircle(x, y) {
-    context.beginPath();
-    context.arc(x, y, CIRCLE_RADIUS, 0, 2 * Math.PI);
+// draw a circle to the x, y position
+function	drawCircleAtPoint(x, y) {
     if ((unionNbr === 0) || (isInFirstUnion(x, y) === true)){
 	circles.push({"x" : x, "y": y, "union": 1});
 	unionNbr = 1;
-	context.strokeStyle = "#ff0000";
+	drawCircleOnCanvas(x, y, 1);
     }
     else {
 	unionNbr++;
 	circles.push({"x" : x, "y": y, "union": unionNbr});
-	context.strokeStyle = "#000000";
+	drawCircleOnCanvas(x, y, 0);
     }
-    context.stroke();
-    console.log(circles);
 }
 
 function	drawAxes() {
@@ -81,4 +100,21 @@ function	drawAxes() {
     context.stroke();
 
     context.strokeStyle = "#000000"; // BLACK
+}
+
+function	drawCircleOnCanvas(x, y, inUnion) {
+    context.beginPath();
+    context.arc(x, y, CIRCLE_RADIUS, 0, 2 * Math.PI);
+    context.strokeStyle = "#000000";
+    if (inUnion === 1) {
+	context.strokeStyle = "#ff0000";
+    }
+    context.stroke();
+}
+
+function	drawCircles() {
+    var arrayLength = circles.length;
+    for (var i = 0; i < arrayLength; i++) {
+	drawCircleOnCanvas(circles[i].x, circles[i].y, circles[i].union);
+    }
 }
