@@ -4,3 +4,11 @@
     border:	1px solid black;
     margin-top:	100px;
 }
+
+#buttons {
+    margin-top:10px;
+}
+
+#rightButton {
+    margin-left:200px;
+}
