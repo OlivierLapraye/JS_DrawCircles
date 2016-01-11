@@ -26,14 +26,20 @@ document.addEventListener("click", function(e) {
     }
 });
 
-// catch the LEFT button click event
-document.getElementById("leftButton").addEventListener("click", function(e) {
+// catch the LEFT button event
+document.getElementById("leftButton").addEventListener("click", function() {
     moveCanvas(-10);
 });
 
-// catch the RIGHT button click event
-document.getElementById("rightButton").addEventListener("click", function(e) {
+// catch the RIGHT button event
+document.getElementById("rightButton").addEventListener("click", function() {
     moveCanvas(10);
+});
+
+// catch the EXPORT button event
+document.getElementById("exportButton").addEventListener("click", function() {
+    document.getElementById("hiddenP").style.display = "inline";
+    console.log(circles);
 });
 
 function	moveCanvas(value) {

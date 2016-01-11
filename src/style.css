@@ -10,5 +10,14 @@
 }
 
 #rightButton {
-    margin-left:200px;
+    margin-left:195px;
+}
+
+#exportButton {
+    margin-top:	10px;
+    width:	300px;
+}
+
+#hiddenP {
+    display:	none;
 }
